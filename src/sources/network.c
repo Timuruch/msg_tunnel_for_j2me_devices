@@ -7,13 +7,15 @@ void* test_func(void* arg);
 void socket_init(SOCK_OBJ* obj){
 	obj->socket = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (!obj->socket) exit(0x99); //socket init failure
+	if (0 > obj->socket) exit(0x99); //socket init failure
 
 	obj->addr.sin_family = AF_INET;
 	obj->addr.sin_port = htons(8080); //dont forget to change to obj->port
 	obj->addr.sin_addr.s_addr = inet_addr("127.0.0.1"); //dont forget to change to obj->ip
+	
+	obj->addrlen = sizeof(obj->addr);
 
-	if (!bind(obj->socket, (struct sockaddr*)&obj->addr, obj->addrlen)) exit(0x98); //bind init failure
+	if (0 > bind(obj->socket, (struct sockaddr*)&obj->addr, obj->addrlen)) exit(0x98); //bind init failure
 }
 
 void init_cl_list(SOCK_OBJ* obj) {
