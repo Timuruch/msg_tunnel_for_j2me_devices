@@ -25,7 +25,8 @@ void init_cl_list(SOCK_OBJ* obj) {
 	}
 
 	obj->run = 1;
-	pthread_create(&obj->listen_thr, NULL, handle_connections, obj);
+//	pthread_create(&obj->listen_thr, NULL, handle_connections, obj);
+	handle_connections(obj);
 }
 
 void stop_all(SOCK_OBJ* obj) {
