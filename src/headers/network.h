@@ -16,6 +16,7 @@ typedef struct CL_OBJ {
 	int socket;
 	struct sockaddr_in addr;
 	socklen_t addrlen;
+	pthread_t client_thread;
 } CL_OBJ;
 
 typedef struct SOCK_OBJ {
@@ -30,7 +31,7 @@ typedef struct SOCK_OBJ {
 	int run; //flag whether socket is active (after listen, before close)
 
 	pthread_t listen_thr; //thread used for listening for new clients	
-	void (*handler_func)(CL_OBJ*); //handler_function (will be called after client connects)
+	void* (*handler_func)(void*); //handler_function (will be called after client connects)
 } SOCK_OBJ;
 
 void socket_init(SOCK_OBJ* obj);

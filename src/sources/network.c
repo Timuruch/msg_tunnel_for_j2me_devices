@@ -66,7 +66,10 @@ void* handle_connections(void* arg) {
 
 		tries = 0;
 
-		if (obj->handler_func) obj->handler_func(new_client);
+		//if (obj->handler_func) obj->handler_func(new_client); commenting this shit for some time
+		//cause i gotta make it somehow multithreaded, since it waits for the function to return
+		
+		pthread_create(&new_client->client_thread, NULL, obj->handler_func, new_client);
 	}
 	if (tries == 2) exit(0x10); //handle_connections failure
 }

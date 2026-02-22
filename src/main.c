@@ -6,7 +6,7 @@
 */
 #include "./headers/network.h"
 
-void handle_clients(CL_OBJ* client);
+void* handle_clients(void* arg);
 
 int main() {
 	SOCK_OBJ server = { 0 };
@@ -29,7 +29,8 @@ int main() {
 	}
 }
 
-void handle_clients(CL_OBJ* client) {
+void* handle_clients(void* arg) {
+	CL_OBJ* client = arg;
 	printf("Client Connected!\nClosing conn!");
 	close(client->socket);
 	free(client);
