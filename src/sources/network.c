@@ -1,8 +1,12 @@
+/*
+ * 	Project: msg_tunnel_for_old_j2me_devices
+ * 	File: src/sources/network.c
+ * 	By: Timuruch (timuruch909@gmail.com)
+*/
 #include "../headers/network.h"
 
 //private functions initialisator 
 void* handle_connections(void* arg);
-void* test_func(void* arg);
 
 void socket_init(SOCK_OBJ* obj){
 	obj->socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -11,7 +15,10 @@ void socket_init(SOCK_OBJ* obj){
 
 	obj->addr.sin_family = AF_INET;
 	obj->addr.sin_port = htons(obj->port); //dont forget to change to obj->port
-	obj->addr.sin_addr.s_addr = inet_addr(obj->ip); //dont forget to change to obj->ip
+	if (obj->ip == 0)
+		obj->addr.sin_addr.s_addr = INADDR_ANY;
+	else
+		obj->addr.sin_addr.s_addr = inet_addr(obj->ip); //dont forget to change to obj->ip
 	
 	obj->addrlen = sizeof(obj->addr);
 
@@ -27,8 +34,7 @@ void init_cl_list(SOCK_OBJ* obj) {
 	}
 
 	obj->run = 1;
-//	pthread_create(&obj->listen_thr, NULL, handle_connections, obj);
-	handle_connections(obj);
+	pthread_create(&obj->listen_thr, NULL, handle_connections, obj);
 }
 
 void stop_all(SOCK_OBJ* obj) {
@@ -50,8 +56,6 @@ void* handle_connections(void* arg) {
 		new_client->socket = accept(obj->socket, 
 				(struct sockaddr*)&new_client->addr, 
 				&new_client->addrlen);
-	
-		printf("Si!%d\n", new_client->socket);
 
 		if (new_client->socket < 0 && tries == 2){
 			tries++;

@@ -1,3 +1,8 @@
+/*
+ * 	Project: msg_tunnel_for_old_j2me_devices
+ * 	File: src/headers/network.h
+ * 	By: Timuruch (timuruch909@gmail.com)
+*/
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
