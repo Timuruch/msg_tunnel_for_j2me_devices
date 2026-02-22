@@ -12,7 +12,6 @@ int main() {
 	SOCK_OBJ server = { 0 };
 	
 	//char* ip = "127.0.0.1";
-
 	//server.ip = ip; //if the server.ip = 0, the server is gonna use INADDR_ANY
 	server.port = 8080;
 	
@@ -31,7 +30,11 @@ int main() {
 
 void* handle_clients(void* arg) {
 	CL_OBJ* client = arg;
-	printf("Client Connected!\nClosing conn!");
+	printf("Client Connected!\nSending stuff!\nClosing conn!\n");
+
+	char* text = "Hello world!";
+	send_text(client, text);
+
 	close(client->socket);
 	free(client);
 }

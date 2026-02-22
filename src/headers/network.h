@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <string.h>
 
 typedef struct CL_OBJ {
 	int socket;
@@ -39,3 +40,5 @@ void socket_init(SOCK_OBJ* obj);
 void init_cl_list(SOCK_OBJ* obj);
 
 void stop_all(SOCK_OBJ* obj);
+
+void send_text(CL_OBJ* client, char* text);
