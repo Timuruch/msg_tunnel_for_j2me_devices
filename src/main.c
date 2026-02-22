@@ -8,7 +8,7 @@ int main() {
 	char* ip = "127.0.0.1";
 
 	server.ip = ip;
-	server.port = 8080;
+	server.port = 80;
 	
 	server.handler_func = handle_clients;	
 
@@ -24,7 +24,7 @@ int main() {
 }
 
 void handle_clients(CL_OBJ* client) {
-	printf("Client Connected!\n");
+	printf("Client Connected!\nClosing conn!");
 	close(client->socket);
 	free(client);
 }

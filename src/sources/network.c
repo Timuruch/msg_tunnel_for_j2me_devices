@@ -10,8 +10,8 @@ void socket_init(SOCK_OBJ* obj){
 	if (0 > obj->socket) exit(0x99); //socket init failure
 
 	obj->addr.sin_family = AF_INET;
-	obj->addr.sin_port = htons(8080); //dont forget to change to obj->port
-	obj->addr.sin_addr.s_addr = inet_addr("127.0.0.1"); //dont forget to change to obj->ip
+	obj->addr.sin_port = htons(obj->port); //dont forget to change to obj->port
+	obj->addr.sin_addr.s_addr = inet_addr(obj->ip); //dont forget to change to obj->ip
 	
 	obj->addrlen = sizeof(obj->addr);
 
