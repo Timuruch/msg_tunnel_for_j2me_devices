@@ -22,7 +22,10 @@ void socket_init(SOCK_OBJ* obj){
 	
 	obj->addrlen = sizeof(obj->addr);
 
-	if (0 > bind(obj->socket, (struct sockaddr*)&obj->addr, obj->addrlen)) exit(0x98); //bind init failure
+	if (0 > bind(obj->socket, (struct sockaddr*)&obj->addr, obj->addrlen)) { //bind init failure
+		perror("Bind init fialure: ");
+		abort();
+	}
 }
 
 void init_cl_list(SOCK_OBJ* obj) {
@@ -68,9 +71,7 @@ void* handle_connections(void* arg) {
 
 		new_client->is_running = 1;
 
-		if (obj->handler_func) obj->handler_func(new_client);
-		
-		pthread_create(&new_client->client_thread, NULL, obj->handler_func, new_client);
+		if (obj->handler_func) pthread_create(&new_client->client_thread, NULL, obj->handler_func, new_client);
 	}
 	if (tries == 2) exit(0x10); //handle_connections failure
 }

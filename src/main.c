@@ -30,7 +30,8 @@ int main() {
 	}
 }
 
-void handle_clients(CL_OBJ* client) {
+void* handle_clients(void* arg) {
+	CL_OBJ* client = arg;
 	printf("Client Connected!\n");
 	while (client->is_running) {
 		com_handler(client);

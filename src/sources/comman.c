@@ -12,6 +12,10 @@ void com_handler(CL_OBJ* client){
 			if (!checkPass(buffer, client)) break;
 		}else if (buffer[0] == 'r') { //register 
 			regNewClient();
+		}else {
+			char* text = "Hello world!";
+			send_text(client, text);
+			break;
 		}
 
 		if (!client->is_running) break;
