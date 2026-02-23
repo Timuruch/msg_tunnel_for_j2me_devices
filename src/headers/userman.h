@@ -12,8 +12,8 @@
  * 	not be hacked by these weridos). So in theory
  * 	the whole data story should be alr.
 */
-#include <stdio.h>
+#include "network.h"
 
-void checkPass(); //check_password
+int checkPass(char buffer[256], CL_OBJ* client); //check_password
 
 void regNewClient(); //register new client to the database

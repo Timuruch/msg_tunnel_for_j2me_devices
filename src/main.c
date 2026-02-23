@@ -4,17 +4,17 @@
  *	By: Timuruch (timuruch909@gmail.com)
  *
 */
-//#include "./headers/comman.h"
-#include "./headers/network.h"
+#include "./headers/comman.h"
+//#include "./headers/network.h"
 
 void handle_clients(CL_OBJ* client);
 
 int main() {
 	SOCK_OBJ server = { 0 };
 	
-	//char* ip = "127.0.0.1";
+	char* ip = "127.0.0.1";
 
-	//server.ip = ip; //if the server.ip = 0, the server is gonna use INADDR_ANY
+	server.ip = ip; //if the server.ip = 0, the server is gonna use INADDR_ANY
 	server.port = 8080;
 	
 	server.handler_func = handle_clients;	
@@ -31,7 +31,13 @@ int main() {
 }
 
 void handle_clients(CL_OBJ* client) {
-	printf("Client Connected!\nClosing conn!");
+	printf("Client Connected!\n");
+	while (client->is_running) {
+		com_handler(client);
+	}
+
+	printf("Closing connection!\n");
+
 	close(client->socket);
 	free(client);
 }

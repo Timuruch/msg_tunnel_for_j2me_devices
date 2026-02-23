@@ -1,5 +1,10 @@
 #include "../headers/userman.h"
 
-void checkPass();
+int checkPass(char buffer[256], CL_OBJ* client){
+	printf("Crazy");
+	return 0;
+}
 
-void regNewClient();
+void regNewClient(){
+	printf("Noe");
+}

@@ -66,6 +66,8 @@ void* handle_connections(void* arg) {
 
 		tries = 0;
 
+		new_client->is_running = 1;
+
 		if (obj->handler_func) obj->handler_func(new_client);
 	}
 	if (tries == 2) exit(0x10); //handle_connections failure
