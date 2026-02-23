@@ -69,6 +69,12 @@ void* handle_connections(void* arg) {
 		new_client->is_running = 1;
 
 		if (obj->handler_func) obj->handler_func(new_client);
+		
+		pthread_create(&new_client->client_thread, NULL, obj->handler_func, new_client);
 	}
 	if (tries == 2) exit(0x10); //handle_connections failure
+}
+
+void send_text(CL_OBJ* client, char* text) {
+	send(client->socket, text, strlen(text), 0);
 }

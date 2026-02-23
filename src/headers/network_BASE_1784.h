@@ -11,14 +11,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
-#include <string.h>
 
 typedef struct CL_OBJ {
 	int socket;
 	struct sockaddr_in addr;
 	socklen_t addrlen;
-	int is_running; //whether the socket is open
-	pthread_t client_thread;
 } CL_OBJ;
 
 typedef struct SOCK_OBJ {
@@ -33,7 +30,7 @@ typedef struct SOCK_OBJ {
 	int run; //flag whether socket is active (after listen, before close)
 
 	pthread_t listen_thr; //thread used for listening for new clients	
-	void* (*handler_func)(void*); //handler_function (will be called after client connects)
+	void (*handler_func)(CL_OBJ*); //handler_function (will be called after client connects)
 } SOCK_OBJ;
 
 void socket_init(SOCK_OBJ* obj);
@@ -41,5 +38,3 @@ void socket_init(SOCK_OBJ* obj);
 void init_cl_list(SOCK_OBJ* obj);
 
 void stop_all(SOCK_OBJ* obj);
-
-void send_text(CL_OBJ* client, char* text);

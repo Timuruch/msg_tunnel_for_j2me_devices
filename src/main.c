@@ -7,7 +7,7 @@
 #include "./headers/comman.h"
 //#include "./headers/network.h"
 
-void handle_clients(CL_OBJ* client);
+void* handle_clients(void* arg);
 
 int main() {
 	SOCK_OBJ server = { 0 };

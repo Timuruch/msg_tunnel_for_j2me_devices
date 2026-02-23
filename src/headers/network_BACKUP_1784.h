@@ -17,8 +17,11 @@ typedef struct CL_OBJ {
 	int socket;
 	struct sockaddr_in addr;
 	socklen_t addrlen;
+<<<<<<< HEAD
 	int is_running; //whether the socket is open
+=======
 	pthread_t client_thread;
+>>>>>>> master
 } CL_OBJ;
 
 typedef struct SOCK_OBJ {
